@@ -6,3 +6,7 @@ fetch('https://api.sampleapis.com/avatar/info')
   })
   .catch(error => console.error('Error fetching repositories:', error));
 
+var data = JSON.parse(response);
+
+var body = document.getElementsByTagName("body")[0];
+body.innerHTML = data.fact;
