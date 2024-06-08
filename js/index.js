@@ -2,15 +2,16 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAvatarInfo();
 });
 
-
+function fetchAvatarInfo() {
     fetch('https://api.sampleapis.com/avatar/info')
         .then(response => response.json())
         .then(data => {
             displayAvatarInfo(data);
         })
         .catch(error => console.error('Error fetching avatar info:', error));
+}
 
-
+function fetchAvatarCharacters() { 
     fetch('https://api.sampleapis.com/avatar/characters')
         .then(response => response.json())
         .then(data => {
@@ -18,8 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error fetching avatar characters:', error));
 
+}
 
-
+function displayAvatarInfo(data) {
     const content = document.getElementById('content');
     content.innerHTML = `
         <div id="avatar-info">
@@ -30,9 +32,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <img src="${data.image}" alt="Avatar Image">
         </div>
     `;
+}
 
-
-
+function displayAvatarCharacters(data) {
     const content = document.getElementById('content');
     content.innerHTML = `
         <div id="avatar-characters">
@@ -46,4 +48,4 @@ document.addEventListener('DOMContentLoaded', () => {
             `).join('')}
         </div>
     `;
-
+}
