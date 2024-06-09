@@ -1,35 +1,38 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchAvatarInfo();
+    fetchAvatarEpisodes();
 });
 
-function fetchAvatarInfo() {
-    fetch('https://api.sampleapis.com/avatar/info')
+function fetchAvatarEpisodes() {
+    fetch('https://api.sampleapis.com/avatar/episodes')
         .then(response => response.json())
         .then(data => {
-            displayAvatarInfo(data);
+            displayAvatarEpisodes(data);
         })
-        .catch(error => console.error('Error fetching avatar info:', error));
+        .catch(error => console.error('Error fetching avatar episodes:', error));
 }
 
-function fetchAvatarCharacters() { 
+function fetchAvatarCharacters() {
     fetch('https://api.sampleapis.com/avatar/characters')
         .then(response => response.json())
         .then(data => {
             displayAvatarCharacters(data);
         })
         .catch(error => console.error('Error fetching avatar characters:', error));
-
 }
 
-function displayAvatarInfo(data) {
+function displayAvatarEpisodes(data) {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <div id="avatar-info">
-            <h2>Avatar Info</h2>
-            <p>Name: ${data.name}</p>
-            <p>Description: ${data.description}</p>
-            <p>Age: ${data.age}</p>
-            <img src="${data.image}" alt="Avatar Image">
+        <div id="avatar-episodes">
+            <h2>Avatar Episodes</h2>
+            ${data.map(episode => `
+                <div class="episode-item">
+                    <h3>Season ${episode.season}, Episode ${episode.episode}</h3>
+                    <p>Title: ${episode.title}</p>
+                    <p>Air Date: ${episode.airDate}</p>
+                    <p>Description: ${episode.description}</p>
+                </div>
+            `).join('')}
         </div>
     `;
 }
