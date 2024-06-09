@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #e0f7fa;
 }
 
 .container {
@@ -15,6 +15,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background: #00796b;
+    color: white;
+    padding: 10px 20px;
 }
 
 .header h1 {
@@ -25,22 +28,20 @@ button {
     padding: 10px 20px;
     margin: 10px;
     cursor: pointer;
+    background: #004d40;
+    color: white;
+    border: none;
+    border-radius: 5px;
 }
 
-#avatar-info, #avatar-characters {
-    background: #fff;
+button:hover {
+    background: #00695c;
+}
+
+#content {
+    background: white;
     padding: 20px;
     margin-top: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.character-item {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
-}
-
-.character-item img {
-    width: 100px;
-    height: auto;
-}
