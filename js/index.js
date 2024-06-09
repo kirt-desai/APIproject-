@@ -1,52 +1,51 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetchAvatarEpisodes();
+    fetchCurrentWeather();
 });
 
-function fetchAvatarEpisodes() {
-    fetch('https://api.sampleapis.com/avatar/episodes')
+const apiKey = 'your_open-meteo_api_key';
+const baseUrl = 'https://api.open-meteo.com/v1/forecast?latitude=35&longitude=139&current_weather=true';
+
+function fetchCurrentWeather() {
+    fetch(`${baseUrl}&current_weather=true`)
         .then(response => response.json())
         .then(data => {
-            displayAvatarEpisodes(data);
+            console.log(data);
+            displayCurrentWeather(data.current_weather);
         })
-        .catch(error => console.error('Error fetching avatar episodes:', error));
+        .catch(error => console.error('Error fetching current weather:', error));
 }
 
-function fetchAvatarCharacters() {
-    fetch('https://api.sampleapis.com/avatar/characters')
+function fetchWeatherForecast() {
+    fetch(`${baseUrl}&daily=temperature_2m_max,temperature_2m_min`)
         .then(response => response.json())
         .then(data => {
-            displayAvatarCharacters(data);
+            console.log(data);
+            displayWeatherForecast(data.daily);
         })
-        .catch(error => console.error('Error fetching avatar characters:', error));
+        .catch(error => console.error('Error fetching weather forecast:', error));
 }
 
-function displayAvatarEpisodes(data) {
+function displayCurrentWeather(data) {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <div id="avatar-episodes">
-            <h2>Avatar Episodes</h2>
-            ${data.map(episode => `
-                <div class="episode-item">
-                    <h3>Season ${episode.season}, Episode ${episode.episode}</h3>
-                    <p>Title: ${episode.title}</p>
-                    <p>Air Date: ${episode.airDate}</p>
-                    <p>Description: ${episode.description}</p>
-                </div>
-            `).join('')}
+        <div id="current-weather">
+            <h2>Current Weather</h2>
+            <p>Temperature: ${data.temperature}°C</p>
+            <p>Condition: ${data.weathercode}</p>
         </div>
     `;
 }
 
-function displayAvatarCharacters(data) {
+function displayWeatherForecast(data) {
     const content = document.getElementById('content');
     content.innerHTML = `
-        <div id="avatar-characters">
-            <h2>Avatar Characters</h2>
-            ${data.map(character => `
-                <div class="character-item">
-                    <h3>${character.name}</h3>
-                    <p>Nation: ${character.nation}</p>
-                    <img src="${character.image}" alt="${character.name} Image">
+        <div id="weather-forecast">
+            <h2>Weather Forecast</h2>
+            ${data.time.map((date, index) => `
+                <div class="forecast-item">
+                    <h3>${date}</h3>
+                    <p>Max Temperature: ${data.temperature_2m_max[index]}°C</p>
+                    <p>Min Temperature: ${data.temperature_2m_min[index]}°C</p>
                 </div>
             `).join('')}
         </div>
